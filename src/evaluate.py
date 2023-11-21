@@ -50,8 +50,11 @@ def main(
         batch_size  : int = 1,
         prompt_index: int = 0,
         eval_mode   : str = "public_test",
-
+        target_folder: str = None
 ):
+    
+    if target_folder is None:
+        raise Exception("Please specify target folder")
     
     logger.info("Dataset name: {}".format(dataset_name))
     logger.info("Model name: {}".format(model_name))
@@ -72,9 +75,12 @@ def main(
         #sample['model_prediction'] = model_prediction
         sample['model_soft_answer'] = model_soft_answer
         all_samples_with_model_predictions.append(sample)
-
-    os.makedirs('log_predictions', exist_ok=True)    
-    with open('log_predictions/{}_{}_p{}.json'.format(model_name, dataset_name, prompt_index), 'w') as f:
+    
+    pred_folder = os.path.join(target_folder, "log_predictions")
+    log_folder = os.path.join(target_folder, "log")
+    os.makedirs(pred_folder, exist_ok=True)  
+    os.makedirs(log_folder, exist_ok=True)  
+    with open(os.path.join(pred_folder, '{}_{}_p{}.json'.format(model_name, dataset_name, prompt_index)), 'w') as f:
         
         if model_name in ['chatglm-6b', 'chatglm2-6b', 'chatglm3-6b']:
             json.dump(all_samples_with_model_predictions, f, indent=4, sort_keys=False, ensure_ascii=True)
@@ -84,7 +90,7 @@ def main(
 
     logger.info("Results: {0}".format(json.dumps(results, indent=4)))
 
-    with open('log/{}/{}/{}_p{}.json'.format(eval_mode, model_name, dataset_name, prompt_index), 'w') as f:
+    with open(os.path.join(log_folder, '{}_p{}.json'.format(dataset_name, prompt_index)), 'w') as f:
         json.dump(results, f, indent=4)
 
 

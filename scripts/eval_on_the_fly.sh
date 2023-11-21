@@ -4,10 +4,10 @@
 
 
 #####
-MODEL_PATH=../llm_train/output_dir/alpaca_en+alpaca_zh
-checkpoint='checkpoint-50'
+MODEL_PATH=../llm_train/output_dir/model_archive/training_v0/alpaca_zh
+checkpoint='checkpoint-1200'
 MODEL_NAME=$(basename $MODEL_PATH)
-GPU=0
+GPU=0,1
 BZ=8
 #####
 
@@ -17,10 +17,10 @@ if [[ -e "./pytorch_model.bin" ]]; then
 else
   echo "Model bin not exists" 
   python zero_to_fp32.py . pytorch_model.bin 
-  cp ../../../helper_configs/* . 
+  cp ../../../../../helper_configs/* . 
   echo "Created a normal checkpoints"
 fi
-
+cp ../../../../../helper_configs/* . 
 cd -
 echo $CWD
 
