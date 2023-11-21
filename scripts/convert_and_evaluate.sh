@@ -97,7 +97,8 @@ do
 done
 
 
-
+rm -rf $MODEL_PATH
+echo "$MODEL_PATH CLEANED"
 
 
 
