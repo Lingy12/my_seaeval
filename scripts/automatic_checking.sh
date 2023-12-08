@@ -12,7 +12,7 @@ do
     then
         
         echo $BASENAME            
-        FULLPATH=$LISTEN_FOLDER/$BASENAME-results
+        FULLPATH=$LISTEN_FOLDER/converted_checkpoint/$BASENAME-results
         echo 'Checking' $FULLPATH
 
         if [ ! -d "$FULLPATH" ]; 

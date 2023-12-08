@@ -85,7 +85,7 @@ echo "MODEL_NAME=$MODEL_NAME"
 
 for EVAL_MODE in public_test hidden_test
 do
-    TARGET_DIR=$LISTEN_FOLDER/$MODEL_INDEX-results/$EVAL_MODE
+    TARGET_DIR=$LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-results/$EVAL_MODE
     mkdir -p $TARGET_DIR/log
 
     for ((i=1; i<=1; i++))
@@ -98,6 +98,7 @@ done
 
 
 rm -rf $MODEL_PATH
+rm -rf $LISTEN_FOLDER/$MODEL_INDEX
 echo "$MODEL_PATH CLEANED"
 
 

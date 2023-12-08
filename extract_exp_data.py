@@ -27,7 +27,7 @@ def extract_data(exp_root, data_name):
                                 # print(model_path.parent.absolute())
         
                                 extracted_data = {
-                                    "name": f"{os.path.basename(model_path.parent.absolute())}",
+                                    "name": f"{os.path.basename(model_path.parent.parent.absolute())}",
                                     "step": os.path.basename(subdir).split('-')[1],
                                     "test_data": os.path.basename(file_path)[:-5],
                                     "test_mode": test_folder,
