@@ -163,10 +163,11 @@ PROMPT_TEMPLATE = {
                     
                     'cross_xquad': [
                         "Content:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
-                        "Kindly choose the correct answer from the options provided for the multiple-choice question.\nContent:\n{}\nQuestion:\n{}\nChoices:\n{}\nAnswer:\n",
-                        "Solve the multi-choice question by selecting the accurate answer.\nContent:\n{}\nQuestion:\n{}\nChoices:\n{}\nAnswer:\n",
-                        "Please answer the following multiple-choice question by selecting the correct option.\n\nContent:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
-                        "As an expert, your task is to solve the following multiple-choice question. Identify the correct response among the given choices.\n\nContent:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
+                        "Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction: \nAccording to the following paragraph, answer the question using the provided choice.\n\n## Input:\nParagraph:{}\nQuestion:{}\nChoice:{}\nAnswer: \n\n### Response:"
+                        # "Kindly choose the correct answer from the options provided for the multiple-choice question.\nContent:\n{}\nQuestion:\n{}\nChoices:\n{}\nAnswer:\n",
+                        # "Solve the multi-choice question by selecting the accurate answer.\nContent:\n{}\nQuestion:\n{}\nChoices:\n{}\nAnswer:\n",
+                        # "Please answer the following multiple-choice question by selecting the correct option.\n\nContent:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
+                        # "As an expert, your task is to solve the following multiple-choice question. Identify the correct response among the given choices.\n\nContent:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
                     ],
 
 

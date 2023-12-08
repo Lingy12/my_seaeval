@@ -15,10 +15,10 @@ EVAL_MODE=$3
 mkdir -p log/$EVAL_MODE/$MODEL_BASE_NAME
 
 
-for ((i=1; i<=1; i++))
+for ((i=2; i<=2; i++))
 do
 
-    bash scripts/eval.sh cross_xquad $MODEL_NAME $GPU $BZ $i $EVAL_MODE             2>&1 | tee log/$EVAL_MODE/$MODEL_BASE_NAME/cross_xquad_p$i.log
+    bash scripts/eval.sh cross_xquad $MODEL_NAME $GPU $BZ $i $EVAL_MODE output/xquad_test           2>&1 | tee log/$EVAL_MODE/$MODEL_BASE_NAME/cross_xquad_p$i.log
 
 done
 
