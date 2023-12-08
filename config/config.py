@@ -16,6 +16,7 @@
 DATASET_PATH = {
                 'cross_mmlu'    : 'all_data',
                 'cross_logiqa'  : 'all_data',
+                'cross_xquad': 'all_data',
                 'sing2eng'      : 'all_data',
                 'sg_eval'       : 'all_data',
                 'us_eval'       : 'all_data',
@@ -48,6 +49,7 @@ DATASET_PATH = {
 DATASET_EVAL_SAMPLES = {
                             'cross_mmlu'    : 99999,
                             'cross_logiqa'  : 99999,
+                            'cross_xquad' : 99999,
                             'sing2eng'      : 99999,
                             'sg_eval'       : 99999,
                             'us_eval'       : 99999,
@@ -106,10 +108,12 @@ DATASET_EVAL_SPLIT = {
                         'wnli_mc'       : 'wnli_mc',
                         'rte_mc'        : 'rte_mc',
                         'mrpc_mc'       : 'mrpc_mc',
+                        'cross_xquad': 'cross_xquad'
                     }
 
 DATASET_TYPE = {
                     'cross_mmlu'    : 'cross_mmlu',
+                    'cross_xquad' : 'cross_xquad',
                     'cross_logiqa'  : 'cross_logiqa',
                     'sing2eng'      : 'to_eng_translation',
                     'sg_eval'       : 'eng_multi_choice_no_context',
@@ -156,6 +160,15 @@ PROMPT_TEMPLATE = {
                         "Please answer the following multiple-choice question by selecting the correct option.\n\nContent:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
                         "As an expert, your task is to solve the following multiple-choice question. Identify the correct response among the given choices.\n\nContent:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
                     ],
+                    
+                    'cross_xquad': [
+                        "Content:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
+                        "Kindly choose the correct answer from the options provided for the multiple-choice question.\nContent:\n{}\nQuestion:\n{}\nChoices:\n{}\nAnswer:\n",
+                        "Solve the multi-choice question by selecting the accurate answer.\nContent:\n{}\nQuestion:\n{}\nChoices:\n{}\nAnswer:\n",
+                        "Please answer the following multiple-choice question by selecting the correct option.\n\nContent:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
+                        "As an expert, your task is to solve the following multiple-choice question. Identify the correct response among the given choices.\n\nContent:\n{}\n\nQuestion:\n{}\n\nChoices:\n{}\n\nAnswer:\n",
+                    ],
+
 
                     'sing2eng': [
                         "Translate the following sentence from Singlish to English. Please only output the translated sentence.\n\nInput:\n{}\n\nOutput:\n",

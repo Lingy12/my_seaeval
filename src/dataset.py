@@ -111,8 +111,8 @@ class Dataset(object):
                         ]:
             self._format_cross_data_input()
 
-        #elif self.dataset_type == 'cross_logiqa':
-        #    self._format_cross_logiqa_input()
+        elif self.dataset_type == 'cross_xquad':
+           self._format_xquad_input()
 
         else:
             raise NotImplementedError("Dataset type {} not implemented yet".format(self.dataset_type))
@@ -344,5 +344,32 @@ class Dataset(object):
         logger.info("\n{}".format(random.choice(self.data)['input']))
         logger.info("------------------------------------------")
 
+
+    def _format_xquad_input(self):
+        self.data = []
+        
+        for sample in self.raw_data:
+            
+            # check if language is supported
+            for lang in ["Chinese", "English", "Vienamese", "Spanish"]:
+
+
+                new_sample            = {}
+                new_sample['id']      = sample['id'] + '_' + lang
+                # lang_key = lang.capitalize()
+                new_sample['input']   = self.prompt_template.format(sample[lang]['context'], sample[lang]['question'], "\n".join(sample[lang]['choices']))
+                new_sample['output']  = sample[lang]['answer']
+                new_sample['choices'] = sample[lang]['choices']
+
+                self.data.append(new_sample)
+
+        logger.info("Supported languages: {}".format(self.support_langs))
+        logger.info("Keep samples with supported languages: {}".format(len(self.data)))
+
+        logger.info("One sample: {}".format(self.data[0]))
+
+        logger.info("-------------INPUT EXAMPLE--------------------")
+        logger.info("\n{}".format(random.choice(self.data)['input']))
+        logger.info("------------------------------------------")
 
 
