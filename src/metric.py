@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 ###
-# Created Date: Tuesday, July 25th 2023, 10:47:48 am
+# Created Date: Friday, November 10th 2023, 12:24:58 pm
 # Author: Bin Wang
 # -----
 # Copyright (c) Bin Wang @ bwang28c@gmail.com
@@ -11,7 +11,6 @@
 # Date&Time 			By	Comments
 # ----------			---	----------------------------------------------------------
 ###
-
 
 # add parent directory to sys.path
 import sys
@@ -73,6 +72,7 @@ class Metric(object):
                                     'local_eval_cn',
                                     'cross_logiqa',
                                     'cross_mmlu',
+                                    'cross_xquad',
                                     'chi_c3_multi_choice',
                                     'chi_ocnli_multi_choice',
                                     'ind_classification_multi_choice',
@@ -120,9 +120,9 @@ class Metric(object):
         elif self.dataset_type in [
                                     'cross_mmlu',
                                     'cross_logiqa',
+                                    'cross_xquad',
                                     ]:
             return self._compute_cross_mmlu(data, predictions)
-
         else:
             raise NotImplementedError("Dataset type {} not implemented yet".format(self.dataset_type))
 
@@ -519,6 +519,8 @@ class Metric(object):
 
         bleu_sentence_scores = []
         for sentence, prediction in zip(all_outputs, predictions):
+            sentence = word_tokenize(sentence)
+            prediction = word_tokenize(prediction)
             bleu_sentence_scores.append(self.sentence_bleu(hypothesis=prediction, references=[sentence], smoothing_function=self.bleu_smooth_function.method1))
 
         bleu_score = sum(bleu_sentence_scores) / len(bleu_sentence_scores)
@@ -699,7 +701,7 @@ class Metric(object):
         AC3_scores = {}
         for i in range(2, num_of_langs+1):
             consistency_i = consistency_scores['consistency_{}'.format(i)]
-            AC3_scores['AC3_{}'.format(i)] = 2 * consistency_i * accuracy / (consistency_i + accuracy)
+            AC3_scores['AC3_{}'.format(i)] = 2 * consistency_i * accuracy / (consistency_i + accuracy + 1e-9)
 
         lang_acc = {}
         for i in range(num_of_langs):
