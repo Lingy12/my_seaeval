@@ -108,12 +108,9 @@ class Dataset(object):
         elif self.dataset_type in [
                         'cross_mmlu', 
                         'cross_logiqa',
+                        'cross_xquad'
                         ]:
             self._format_cross_data_input()
-
-        elif self.dataset_type == 'cross_xquad':
-           self._format_xquad_input()
-
         else:
             raise NotImplementedError("Dataset type {} not implemented yet".format(self.dataset_type))
 
@@ -317,49 +314,24 @@ class Dataset(object):
     def _format_cross_data_input(self):
 
         self.data = []
-
-        for sample in self.raw_data:
-
-            # check if language is supported
-            if all(lang not in sample['id'] for lang in self.support_langs):
-                continue
-
-            new_sample            = {}
-            new_sample['id']      = sample['id']
-            if 'input' in sample and 'question' in sample:
-                new_sample['input']   = self.prompt_template.format(sample['input'], sample['question'], "\n".join(sample['choices']))
-            else:
-                new_sample['input']   = self.prompt_template.format(sample['question'], "\n".join(sample['choices']))
-            new_sample['output']  = sample['answer']
-            new_sample['choices'] = sample['choices']
-
-            self.data.append(new_sample)
-
-        logger.info("Supported languages: {}".format(self.support_langs))
-        logger.info("Keep samples with supported languages: {}".format(len(self.data)))
-
-        logger.info("One sample: {}".format(self.data[0]))
-
-        logger.info("-------------INPUT EXAMPLE--------------------")
-        logger.info("\n{}".format(random.choice(self.data)['input']))
-        logger.info("------------------------------------------")
-
-
-    def _format_xquad_input(self):
-        self.data = []
         
         for sample in self.raw_data:
             
-            # check if language is supported
-            for lang in ["Chinese", "English", "Vienamese", "Spanish"]:
+            if all(lang.capitalize() not in sample.keys() for lang in self.support_langs):
+                continue
 
+            # check if language is supported
+            for lang in self.support_langs:
 
                 new_sample            = {}
                 new_sample['id']      = sample['id'] + '_' + lang
-                # lang_key = lang.capitalize()
-                new_sample['input']   = self.prompt_template.format(sample[lang]['context'], sample[lang]['question'], "\n".join(sample[lang]['choices']))
-                new_sample['output']  = sample[lang]['answer']
-                new_sample['choices'] = sample[lang]['choices']
+                lang_key = lang.capitalize()
+                if 'context' in sample[lang_key]:
+                    new_sample['input']   = self.prompt_template.format(sample[lang_key]['context'], sample[lang_key]['question'], "\n".join(sample[lang_key]['choices']))
+                else:
+                    new_sample['input']   = self.prompt_template.format(sample[lang_key]['question'], "\n".join(sample[lang_key]['choices'])) # for cross_mmlu
+                new_sample['output']  = sample[lang_key]['answer']
+                new_sample['choices'] = sample[lang_key]['choices']
 
                 self.data.append(new_sample)
 
@@ -371,5 +343,6 @@ class Dataset(object):
         logger.info("-------------INPUT EXAMPLE--------------------")
         logger.info("\n{}".format(random.choice(self.data)['input']))
         logger.info("------------------------------------------")
+
 
 
