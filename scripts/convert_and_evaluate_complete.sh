@@ -88,7 +88,7 @@ do
     TARGET_DIR=$LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-results/$EVAL_MODE
     mkdir -p $TARGET_DIR/log
 
-    for ((i=1; i<=1; i++))
+    for ((i=1; i<=5; i++))
     do
 	bash scripts/eval.sh cross_xquad $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR        2>&1 | tee $TARGET_DIR/log/cross_xquad_p$i.log
         bash scripts/eval.sh cross_mmlu $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR         2>&1 | tee $TARGET_DIR/log/cross_mmlu_p$i.log
