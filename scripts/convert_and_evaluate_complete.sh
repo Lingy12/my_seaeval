@@ -83,7 +83,7 @@ BZ=4
 
 echo "MODEL_NAME=$MODEL_NAME"
 
-for EVAL_MODE in public_test hidden_test
+for EVAL_MODE in hidden_test
 do
     TARGET_DIR=$LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-results/$EVAL_MODE
     mkdir -p $TARGET_DIR/log
