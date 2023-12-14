@@ -378,6 +378,11 @@ class Model(object):
 
         generation_config                = self.model.generation_config
         generation_config.max_new_tokens = self.max_new_tokens
+        formatted_batch_input = []
+        for input in batch_input:
+            B_INST, E_INST, B_SYS, E_SYS = "[INST]", "[/INST]", "<<SYS>>", "<</SYS>>"
+            SYS_PROMPT=B_SYS + '\n' + "You are a helpful assistent.\n" + E_SYS + '\n\n'
+            formatted_batch_input.extend([f"{B_INST} {SYS_PROMPT} {input} {E_INST}"])
         input_ids                        = self.tokenizer(batch_input, return_tensors="pt", padding=True).input_ids.to(self.model.device)
 
         if generation_config.pad_token_id != self.tokenizer.pad_token_id:

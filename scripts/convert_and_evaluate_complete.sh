@@ -97,8 +97,8 @@ do
 done
 
 
-rm -rf $MODEL_PATH
-rm -rf $LISTEN_FOLDER/$MODEL_INDEX
+# rm -rf $MODEL_PATH
+# rm -rf $LISTEN_FOLDER/$MODEL_INDEX
 echo "$MODEL_PATH CLEANED"
 
 
