@@ -41,8 +41,13 @@ logging.basicConfig(
     level   = logging.INFO,
 )
 # =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  =  = 
-
-
+LANG_TAG = ['[ZH]', '[EN]', '[VI]', '[ES]']
+TAG_MAP = {
+    "chinese": "[ZH]", 
+    "english": "[EN]",
+    "vietnamese": "[VI]",
+    "spanish": "[ES]"
+}
 
 def main(
         dataset_name: str = "",
@@ -50,7 +55,8 @@ def main(
         batch_size  : int = 1,
         prompt_index: int = 0,
         eval_mode   : str = "public_test",
-        target_folder: str = None
+        target_folder: str = None,
+        tag: bool = False
 ):
     
     if target_folder is None:
@@ -67,7 +73,7 @@ def main(
     model   = Model(model_name)
     metric  = Metric(dataset_name)
 
-    results, model_predictions, all_soft_answer = do_evaluation(dataset, model, metric, batch_size)
+    results, model_predictions, all_soft_answer = do_evaluation(dataset, model, metric, batch_size, tag)
     model_name = os.path.basename(os.path.normpath(model_name))
     all_samples_with_model_predictions = []
     for sample, model_prediction, model_soft_answer in zip(dataset.data, model_predictions, all_soft_answer):
@@ -94,20 +100,24 @@ def main(
         json.dump(results, f, indent=4)
 
 
-def do_evaluation(dataset, model, metric, batch_size):
+def do_evaluation(dataset, model, metric, batch_size, tag):
 
     all_inputs = [sample['input'] for sample in dataset.data]
-
+    all_ids = [sample['id'] for sample in dataset.data]
     # import pdb; pdb.set_trace()
     # input = ['我国最大的岛屿是什么？']
     # print(model.generate(input))
 
     predictions = []
     for i in trange(0, len(all_inputs), batch_size, leave=False):
-        
+        batch_ids = all_ids[i : i + batch_size]
+        batch_tag = list(map(lambda x: TAG_MAP[x.rsplit('_', 1)[-1]], batch_ids))
         batch_inputs  = all_inputs[i:i+batch_size]
 
-        batch_outputs = model.generate(batch_inputs)
+        if tag == True:
+            batch_outputs = model.generate(batch_inputs, batch_tag)
+        else:
+            batch_outputs = model.generate(batch_inputs, None)
 
         # import pdb; pdb.set_trace()
         predictions.extend(batch_outputs)

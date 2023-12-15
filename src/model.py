@@ -174,110 +174,8 @@ class Model(object):
             self._load_model_llama_family() # default llama family
         
     
-    def generate(self, batch_input):
-
-        if self.model_name in ['alpaca-7b', 
-                               'vicuna-7b', 
-                               'vicuna-13b',
-                               'vicuna-33b',
-                               'vicuna-7b-v1.5',
-                               'vicuna-13b-v1.5',
-                               'llama-7b',
-                               'llama-13b',
-                               'llama-30b',
-                               'llama-65b',
-                               'llama-2-7b',
-                               'llama-2-13b',
-                               'llama-2-70b',
-                               'seallama-13b-220823',
-                               'bloomz-7b1',
-
-                               'llama-2-7b-hf.alpaca_en+alpaca_es.finetune', 
-                               'llama-2-7b-hf.alpaca_en+alpaca_es+translation_ncwm_en-es.finetune', 
-                               'llama-2-7b-hf', 
-                               'llama-2-7b-hf.alpaca_en+alpaca_vi+alpaca_es+alpaca_zh.finetune', 
-                               'llama-2-7b-hf.alpaca_en.finetune', 
-                               'llama-2-7b-hf.alpaca_en+alpaca_vi+translation_ncwm_en-vi.finetune', 
-                               'llama-2-7b-hf.alpaca_en+alpaca_zh.finetune', 
-                               'llama-2-7b-hf.alpaca_en+alpaca_zh+translation_ncwm_en-zh.finetune', 
-                               'llama-2-7b-hf.alpaca_en+alpaca_vi.finetune',
-                               
-                                "llama-2-7b-hf.alpaca-gpt4_en+alpaca-gpt4_es.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.alpaca-gpt4_en.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.alpaca-gpt4_en+alpaca-gpt4_zh.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.alpaca-gpt4_en+alpaca-gpt4_es+alpaca-gpt4_zh+alpaca-gpt4_vi.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.alpaca-gpt4_en+alpaca-gpt4_vi.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.sharegpt-clean_en+sharegpt-clean_es+sharegpt-clean_zh+sharegpt-clean_vi.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.sharegpt-clean_en+sharegpt-clean_zh.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.sharegpt-clean_en.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.sharegpt-clean_en+sharegpt-clean_vi.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.sharegpt-clean_en+sharegpt-clean_es.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.platypus_en+platypus_vi+platypus_zh+platypus_es.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.platypus_en+platypus_es.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.platypus_en.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.platypus_en+platypus_zh.finetune.general_prompt_no_sys",
-                                "llama-2-7b-hf.platypus_en+platypus_vi.finetune.general_prompt_no_sys"
-                               ]:
-                        
-            return self._generate_llama_family(batch_input)
-        
-        elif self.model_name in ['llama-2-7b-chat', 
-                                 'llama-2-13b-chat', 
-                                 'llama-2-70b-chat',
-                                 'seallama-7b-040923'
-                                 ]:
-            return self._generate_llama_2_chat(batch_input)
-        
-        elif self.model_name in ['flan-t5-small',
-                                 'flan-t5-base',
-                                 'flan-t5-large',
-                                 'flan-t5-xl',
-                                 'flan-t5-xxl',
-                                 'flan-ul2',
-                                 'fastchat-t5-3b-v1.0',
-                                ]:
-            
-            return self._generate_t5(batch_input)
-        
-        elif self.model_name in ['mt0-xxl'
-                                 ]:
-            
-            return self._generate_mt0(batch_input)
-
-        elif self.model_name in ['chatgpt', 
-                                 'chatgpt4'
-                                 ]:
-
-            return self._generate_chatgpt(batch_input)
-        
-        elif self.model_name in ['chatglm-6b',
-                                 'chatglm2-6b',
-                                 'chatglm3-6b',
-                                    ]:
-            return self._generate_chatglm(batch_input)
-        
-        elif self.model_name in ['baichuan-7b',
-                                 'baichuan-13b',
-                                 'baichuan-2-7b',
-                                 'baichuan-2-13b'
-                                ]:    
-            return self._generate_baichuan(batch_input)
-        
-        elif self.model_name in ['baichuan-13b-chat',
-                                 'baichuan-2-7b-chat',
-                                 'baichuan-2-13b-chat'
-                                 ]:
-            return self._generate_baichuan_chat(batch_input)
-        
-        elif self.model_name in ['random']:
-            return ["random generation"] * len(batch_input)
-        
-        elif self.model_name in ['colossal-llama-2-7b-base']:
-            return self._generate_colossal(batch_input)
-        
-        else:
-            # raise NotImplementedError("Model {} not implem3 ented yet".format(self.model_name)) 
-            return self._generate_llama_family(batch_input)  # default llama family
+    def generate(self, batch_input, batch_tag):
+        return self._generate_llama_family(batch_input, batch_tag)  # default llama family
 
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -374,21 +272,24 @@ class Model(object):
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     # - - - - - - - - - - - - - - - Generation  - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    def _generate_llama_family(self, batch_input):
+    def _generate_llama_family(self, batch_input, batch_tag=None):
 
         generation_config                = self.model.generation_config
         generation_config.max_new_tokens = self.max_new_tokens
         formatted_batch_input = []
-        for input in batch_input:
+        for i in range(len(batch_input)):
             B_INST, E_INST, B_SYS, E_SYS = "[INST]", "[/INST]", "<<SYS>>", "<</SYS>>"
             SYS_PROMPT=B_SYS + '\n' + "You are a helpful assistent.\n" + E_SYS + '\n\n'
-            formatted_batch_input.extend([f"{B_INST} {SYS_PROMPT} {input} {E_INST}"])
+            if batch_tag is None:
+                formatted_batch_input.extend([f"{B_INST} {SYS_PROMPT} {batch_input[i]} {E_INST}"])
+            else:
+                formatted_batch_input.extend([f"{B_INST} {batch_tag[i]} {SYS_PROMPT} {batch_input[i]} {E_INST} {batch_tag[i]}"])
         input_ids                        = self.tokenizer(batch_input, return_tensors="pt", padding=True).input_ids.to(self.model.device)
-
+      
         if generation_config.pad_token_id != self.tokenizer.pad_token_id:
             generation_config.pad_token_id = self.tokenizer.pad_token_id
             logger.warning("syncing generation config pad with tokenizer")
-            
+        
         with torch.no_grad():
             output_ids = self.model.generate(input_ids, generation_config = generation_config)
 
