@@ -11,7 +11,7 @@ def convert_checkpoint(checkpoint_folder, base_model, destination):
     print('Loading parameter file = {}'.format(parameter_file[0]))
     model = AutoModel.from_pretrained(base_model, state_dict = model_state_dict, device_map='auto')
 
-    model.save_pretrained(destination)
+    model.save_pretrained(destination, max_shard_size='20GB')
 
 if __name__ == "__main__":
     fire.Fire(convert_checkpoint)
