@@ -90,16 +90,16 @@ do
 
     for ((i=1; i<=1; i++))
     do
-	bash scripts/eval.sh cross_xquad $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR        2>&1 | tee $TARGET_DIR/log/cross_xquad_p$i.log
-        bash scripts/eval.sh cross_mmlu $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR         2>&1 | tee $TARGET_DIR/log/cross_mmlu_p$i.log
-        bash scripts/eval.sh cross_logiqa $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR           2>&1 | tee $TARGET_DIR/log/cross_logiqa_p$i.log
+	bash scripts/eval_with_tag.sh cross_xquad $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR        2>&1 | tee $TARGET_DIR/log/cross_xquad_p$i.log
+        bash scripts/eval_with_tag.sh cross_mmlu $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR         2>&1 | tee $TARGET_DIR/log/cross_mmlu_p$i.log
+        bash scripts/eval_with_tag.sh cross_logiqa $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR           2>&1 | tee $TARGET_DIR/log/cross_logiqa_p$i.log
     done
 done
 
 
 # rm -rf $MODEL_PATH
 rm -rf $LISTEN_FOLDER/$MODEL_INDEX
-echo "$LISTEN_FOLDER/$MODEL_INDEX CLEANED"
+echo "$MODEL_PATH CLEANED"
 
 
 

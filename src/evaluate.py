@@ -20,14 +20,15 @@ import json
 import logging
 
 from tqdm import trange
-
+import torch
 from dataset import Dataset
 from model   import Model
 from metric  import Metric
 
 from transformers import set_seed
 set_seed(42) # ensure reproducability
-
+torch.backends.cudnn.benchmark = False
+torch.backends.cudnn.deterministic = True
 
 from config.model_path import (
     MODEL_LANG,
@@ -58,6 +59,7 @@ def main(
         target_folder: str = None,
         tag: bool = False
 ):
+
     
     if target_folder is None:
         raise Exception("Please specify target folder")

@@ -58,3 +58,5 @@ coverage.xml
 docs/_build/
 output/
 test/
+
+wandb/
