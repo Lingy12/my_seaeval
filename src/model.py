@@ -194,9 +194,9 @@ class Model(object):
         # Load Pad token
         logger.info('Tokenizer pad token = {}'.format(self.tokenizer.pad_token))
         if self.tokenizer.pad_token is None:
-            self.tokenizer.add_special_tokens({'pad_token': '<pad>'})
+            self.tokenizer.add_special_tokens({'pad_token': '<unk>'})
             self.model.resize_token_embeddings(len(self.tokenizer))
-            logger.info('Added <pad> to the tokenizer {}'.format(self.model_path))
+            logger.info('Added <unk> to the tokenizer {}'.format(self.model_path))
 
 
     def _load_t5(self):
