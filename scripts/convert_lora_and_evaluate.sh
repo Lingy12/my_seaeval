@@ -10,7 +10,7 @@
 
 
 ################################################# 
-echo PBS: qsub is running on $PBS_O_HOST
+# echo PBS: qsub is running on $PBS_O_HOST
 echo PBS: executing queue is $PBS_QUEUE
 echo -e "Work folder is $PWD\n\n"
 
@@ -47,7 +47,7 @@ else
   echo "Model bin not exists" 
   mkdir -p $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32
   cp -r ./helper_configs/* $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32
-  python convert_lora.py $LISTEN_FOLDER/$MODEL_INDEX ../llm_train/models/llama-2-7b-hf $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32/
+  python convert_lora.py $LISTEN_FOLDER/$MODEL_INDEX $BASE_MODEL $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32/
   echo "Created a normal checkpoints"
 fi
 
@@ -90,15 +90,15 @@ do
 
     for ((i=1; i<=1; i++))
     do
-	bash scripts/eval.sh cross_xquad $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR        2>&1 | tee $TARGET_DIR/log/cross_xquad_p$i.log
+	      bash scripts/eval.sh cross_xquad $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR        2>&1 | tee $TARGET_DIR/log/cross_xquad_p$i.log
         bash scripts/eval.sh cross_mmlu $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR         2>&1 | tee $TARGET_DIR/log/cross_mmlu_p$i.log
         bash scripts/eval.sh cross_logiqa $MODEL_NAME $GPU $BZ $i $EVAL_MODE $TARGET_DIR           2>&1 | tee $TARGET_DIR/log/cross_logiqa_p$i.log
     done
 done
 
 
-# rm -rf $MODEL_PATH
-rm -rf $LISTEN_FOLDER/$MODEL_INDEX
+rm -rf $MODEL_PATH
+# rm -rf $LISTEN_FOLDER/$MODEL_INDEX
 # echo "$MODEL_PATH CLEANED"
 
 

@@ -13,7 +13,7 @@ def convert_checkpoint(checkpoint_folder, base_model, destination):
 
     # model = PeftModel.from_pretrained(adapter, "outputs")
     # model.load_adapter(adapter)
-    model.resize_token_embeddings(32001) # since <pad> is used
+    # model.resize_token_embeddings(32001) # since <pad> is used
     # model.load_adapter(adapter)
     
     model = PeftModel.from_pretrained(model, adapter)
