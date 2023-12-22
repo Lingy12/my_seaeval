@@ -41,7 +41,7 @@ echo "MODEL_INDEX=$MODEL_INDEX"
 echo "LISTEN_FOLDER=$LISTEN_FOLDER"
 
 
-if [[ -e "$LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32/pytorch_model.bin" ]]; then
+if [[ -e "$LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32/pytorch_model*.bin" ]]; then
   echo "Model bin exists."
 else
   echo "Model bin not exists" 
@@ -49,6 +49,8 @@ else
   cp -r ./helper_configs/* $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32
   python convert_lora.py $LISTEN_FOLDER/$MODEL_INDEX $BASE_MODEL $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32/
   echo "Created a normal checkpoints"
+  rm -rf $LISTEN_FOLDER/$MODEL_INDEX
+  echo "Original checkpoint removed."
 fi
 
 # mkdir -p converted_checkpoint/$MODEL_INDEX-fp32
@@ -97,7 +99,7 @@ do
 done
 
 
-rm -rf $MODEL_PATH
+# rm -rf $MODEL_PATH
 # rm -rf $LISTEN_FOLDER/$MODEL_INDEX
 # echo "$MODEL_PATH CLEANED"
 
