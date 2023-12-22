@@ -49,6 +49,8 @@ else
   cp -r ./helper_configs/* $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32
   python zero_to_fp32.py $LISTEN_FOLDER/$MODEL_INDEX $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32/pytorch_model.bin
   echo "Created a normal checkpoints"
+  rm -rf $LISTEN_FOLDER/$MODEL_INDEX
+  echo "original checkpoint removed"
 fi
 
 # mkdir -p converted_checkpoint/$MODEL_INDEX-fp32
@@ -97,9 +99,9 @@ do
 done
 
 
-rm -rf $MODEL_PATH
-rm -rf $LISTEN_FOLDER/$MODEL_INDEX
-echo "$MODEL_PATH CLEANED"
+# rm -rf $MODEL_PATH
+# rm -rf $LISTEN_FOLDER/$MODEL_INDEX
+# echo "$MODEL_PATH CLEANED"
 
 
 
