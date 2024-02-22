@@ -1,6 +1,6 @@
 #!/bin/bash
-#PBS -q normal
-#PBS -l select=1:ncpus=16:ngpus=1:mem=110gb
+#PBS -q ai
+#PBS -l select=1:ncpus=32:ngpus=1:mem=110gb
 #PBS -l walltime=24:00:00
 #PBS -j oe
 #PBS -k oed
@@ -97,7 +97,7 @@ do
 done
 
 # rm -rf $MODEL_PATH
-#rm -rf $LISTEN_FOLDER/$MODEL_INDEX
+rm -rf $LISTEN_FOLDER/$MODEL_INDEX
 # echo "$MODEL_PATH CLEANED"
 
 
