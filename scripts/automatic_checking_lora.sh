@@ -25,7 +25,9 @@ do
             # Do Conversion and Evaluation
             echo "Converting and evaluating $LISTEN_FOLDER/$BASENAME"
             mkdir -p log
-            qsub -v "BASE_MODEL=../llm_train/models/llama-2-7b-hf,MODEL_INDEX=$BASENAME,LISTEN_FOLDER=$LISTEN_FOLDER" -o "log/${MODEL_NAME}_${BASENAME}.log" -N "${MODEL_NAME}_${BASENAME}" scripts/convert_lora_and_evaluate.sh
+            #qsub -v "BASE_MODEL=../llm_train/models/llama-2-7b-hf,MODEL_INDEX=$BASENAME,LISTEN_FOLDER=$LISTEN_FOLDER" -o "log/${MODEL_NAME}_${BASENAME}.log" -N "${MODEL_NAME}_${BASENAME}" scripts/convert_lora_and_evaluate.sh
+
+            qsub -v "BASE_MODEL=../llm_train/models/gemma-2b,MODEL_INDEX=$BASENAME,LISTEN_FOLDER=$LISTEN_FOLDER" -o "log/${MODEL_NAME}_${BASENAME}.log" -N "${MODEL_NAME}_${BASENAME}" scripts/convert_lora_and_evaluate.sh
 
 
         fi

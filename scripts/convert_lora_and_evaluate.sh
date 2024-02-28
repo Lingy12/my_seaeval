@@ -47,7 +47,7 @@ if [[ -e "$LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32/pytorch_model*.b
 else
   echo "Model bin not exists" 
   mkdir -p $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32
-  cp -r ./helper_configs/* $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32
+  cp -r ./helper_configs_gemma/* $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32
   python convert_lora.py $LISTEN_FOLDER/$MODEL_INDEX $BASE_MODEL $LISTEN_FOLDER/converted_checkpoint/$MODEL_INDEX-fp32/
 fi
 
